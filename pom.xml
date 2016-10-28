@@ -214,7 +214,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>diary</finalName>
+    <finalName>onlineVoting</finalName>
     <plugins>
 
 
