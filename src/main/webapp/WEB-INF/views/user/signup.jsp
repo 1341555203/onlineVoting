@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: mtf81
-  Date: 2016/10/28
-  Time: 13:48
+  Date: 2016/11/2
+  Time: 19:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-	<title>SignIn</title>
+	<title>SignUp</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
@@ -19,9 +19,10 @@
 				<a class="navbar-brand" href="<%=request.getContextPath()%>/sys/home">VOTE</a>
 			</div>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<%=request.getContextPath()%>/sys/help">help</a></li>
-				</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="<%=request.getContextPath()%>/user/signin">sign in</a></li>
+				<li><a href="<%=request.getContextPath()%>/sys/help">help</a></li>
+			</ul>
 		</div>
 	</nav>
 
@@ -31,6 +32,12 @@
 			<fieldset>
 				<legend>Sign into your account</legend>
 				<br>
+				<div class="form-group">
+					<label for="inputUsername" class="col-lg-2 control-label">username</label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="inputUsername" name="username" required="required">
+					</div>
+				</div>
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">email</label>
 					<div class="col-lg-10">
@@ -44,18 +51,20 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="inputPwd2" class="col-lg-2 control-label">confirm pwd</label>
+					<div class="col-lg-10">
+						<input type="password" class="form-control" id="inputPwd2" name="password2" required="required">
+					</div>
+				</div>
+				<div class="form-group">
 					<div class="col-lg-8 col-lg-offset-2">
-						<button type="submit" class="btn btn-primary">Sign in<span
+						<button type="submit" class="btn btn-primary">Sign Up<span
 								class="glyphicon glyphicon-play"></span></button>
 					</div>
 				</div>
-				<div class="text-right"><a href="<%=request.getContextPath()%>/user/forgot-password">Forgot password?</a></div>
+				<hr>
 			</fieldset>
-			<hr>
-			<div>
-				Don't have an account?<br>
-				<a href="<%=request.getContextPath()%>/user/signup">sign up </a>
-			</div>
+
 		</form>
 		<div class="form-horizontal  col-lg-4  col-md-5 hidden-sm hidden-xs">
 			<div class="jumbotron">

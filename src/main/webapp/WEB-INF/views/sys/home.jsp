@@ -21,9 +21,7 @@
 
 			<div class="navbar-collapse collapse" id="bs-example-navbar-collapse-2" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
-					<%--c:if 判断 若已登录则试用dropdown显示当前用户--%>
-					<li><a href="<%=request.getContextPath()%>/user/signup">Sign Up<span class="sr-only">(current)</span></a></li>
-					<li><a href="<%=request.getContextPath()%>/user/signin">Sign in</a></li>
+
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${currentUser} <span class="caret"></span></a>
@@ -46,6 +44,9 @@
 					<button type="submit" class="btn btn-default">Search</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
+					<%--c:if 判断 若已登录则试用dropdown显示当前用户--%>
+					<%--<li><a href="<%=request.getContextPath()%>/user/signup">Sign Up<span class="sr-only">(current)</span></a></li>--%>
+					<li><a href="<%=request.getContextPath()%>/user/signin">Sign in</a></li>
 					<li><a href="<%=request.getContextPath()%>/sys/help">help</a></li>
 				</ul>
 			</div>
@@ -60,17 +61,11 @@
 			<p class="text-right">
 				2016-10-28 11:16:03
 			</p>
-			<a href="#" class="btn btn-block btn-primary">vote this</a>
+			<a href="#" class="btn btn-block btn-primary">Cast This</a>
 		</div>
-
 	</div>
 </div>
-	<div class="container col-xs-12">
-		<div class="well well-sm">
-			footer
-		</div>
-	</div>
-
+</div>
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
