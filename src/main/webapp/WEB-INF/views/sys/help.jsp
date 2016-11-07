@@ -25,9 +25,10 @@
 		</div>
 	</nav>
 
-<div class="container">
-	help
-</div>
+	<div class="jumbotron">
+		<h2>Help</h2>
+		<p>there is no help so far.(●'◡'●)</p>
+	</div>
 </div>
 </body>
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>

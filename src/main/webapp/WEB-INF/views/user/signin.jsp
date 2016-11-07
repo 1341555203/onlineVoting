@@ -59,9 +59,14 @@
 		</form>
 		<div class="form-horizontal  col-lg-4  col-md-5 hidden-sm hidden-xs">
 			<div class="jumbotron">
-				<h1>Lorem</h1>
-				<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-					featured content or information.</p>
+				<h2>Poetry</h2>
+				<p>My love is like the grasses
+
+					Hidden in the deep mountains.
+
+					Though its abundance increase,
+
+					There is none that knows.</p>
 			</div>
 		</div>
 	</div>

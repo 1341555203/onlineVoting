@@ -28,7 +28,7 @@
 
 
 	<div class="container">
-		<form class="form-horizontal  col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-0" method="post" action="signin" style="margin-top: 20px;">
+		<form class="form-horizontal  col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-0" method="post" action="signup" style="margin-top: 20px;">
 			<fieldset>
 				<legend>Sign into your account</legend>
 				<br>
@@ -68,9 +68,14 @@
 		</form>
 		<div class="form-horizontal  col-lg-4  col-md-5 hidden-sm hidden-xs">
 			<div class="jumbotron">
-				<h1>Lorem</h1>
-				<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-					featured content or information.</p>
+				<h1>Poetry</h1>
+				<p>My love is like the grasses
+
+					Hidden in the deep mountains.
+
+					Though its abundance increase,
+
+					There is none that knows.</p>
 			</div>
 		</div>
 	</div>
