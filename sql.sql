@@ -22,6 +22,7 @@ create table t_menu(
 	id int(8) not null auto_increment primary key,
     menu_title varchar(256) not null default 'n.s',
     menu_discription varchar(512) not null default 'n.s',
+    need_pwd varchar(256),
     create_date timestamp not null ,
     cutoff_time timestamp,
     menu_status char(1) not null default '0',	-- 0 投票中 1 暂停 2 截止
@@ -49,3 +50,14 @@ ADD CONSTRAINT `fk_menu_option`
   ON DELETE CASCADE
   ON UPDATE NO ACTION;
 
+/*
+投票记录表
+*/
+drop table if exists t_record;
+create table t_record(
+	id int(8) not null auto_increment primary key ,
+    menu_id int(8) not null,
+    option_id int(8) not null,
+    user_id int(8) not null,
+    create_date timestamp
+);
