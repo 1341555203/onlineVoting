@@ -1,13 +1,12 @@
 package cn.qtech.xf.modules.web;
 
 import cn.qtech.xf.modules.entity.User;
+import cn.qtech.xf.modules.entity.User_Temp;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import sun.misc.Contended;
 
-import javax.annotation.Resources;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -21,7 +20,7 @@ public class SysController {
 	 */
 	@RequestMapping(value = "/home",method = RequestMethod.GET)
 	public String home(Model model, HttpSession httpSession){
-		User currentUser=(User)httpSession.getAttribute("currentUser");
+		User currentUser=(User) httpSession.getAttribute("currentUser");
 		model.addAttribute("currentUser",currentUser);
 		return "sys/home";
 	}
