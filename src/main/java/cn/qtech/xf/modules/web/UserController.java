@@ -1,5 +1,6 @@
 package cn.qtech.xf.modules.web;
 
+import cn.qtech.xf.common.utils.Md5Util;
 import cn.qtech.xf.modules.dto.UserDto;
 import cn.qtech.xf.modules.entity.User;
 import cn.qtech.xf.modules.entity.User_Temp;
@@ -39,7 +40,8 @@ public class UserController {
 
 //		User_Temp currentUser=new User_Temp(1,"mtf","mtf917@gmail.com");
 //		httpSession.setAttribute("currentUser",currentUser);
-		System.out.println(userDto.getEmail());
+		userDto.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
+		System.out.println(userDto.getPassword());
 		if(errors.hasErrors()){
 			return "user/signin";
 		}
@@ -60,14 +62,19 @@ public class UserController {
 		return "user/signup";
 	}
 	@RequestMapping(value="/signup",method = RequestMethod.POST)
-	public String signUp(@Valid User user, Errors errors, ModelMap modelMap){
+	public String signUp(@Valid UserDto userDto, Errors errors, ModelMap modelMap){
 		if(errors.hasErrors()){
 			return "user/signup";
 		}
-		else if(userService.selectByEmail(user.getEmail())!=null){
+		else if(userService.selectByEmail(userDto.getEmail())!=null){
 			modelMap.put("errorMessage","该邮箱已被注册!");
 			return "user/signup";
 		}
+		User user=new User();
+		user.setEmail(userDto.getEmail());
+		user.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
+		System.out.println(user.getPassword());
+		user.setUsername(userDto.getUsername());
 		userService.register(user);
 		modelMap.addAttribute("userDto",user);
 		return "redirect:/user/signupSuccess";
