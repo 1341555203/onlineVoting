@@ -5,6 +5,7 @@ import cn.qtech.xf.modules.dto.UserDto;
 import cn.qtech.xf.modules.entity.User;
 import cn.qtech.xf.modules.entity.User_Temp;
 import cn.qtech.xf.modules.service.UserService;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +39,6 @@ public class UserController {
 	@RequestMapping(value = "/signin",method = RequestMethod.POST)
 	public String signIn(@Valid UserDto userDto, Errors errors,HttpSession httpSession){
 
-//		User_Temp currentUser=new User_Temp(1,"mtf","mtf917@gmail.com");
-//		httpSession.setAttribute("currentUser",currentUser);
 		userDto.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
 		System.out.println(userDto.getPassword());
 		if(errors.hasErrors()){
@@ -73,7 +72,6 @@ public class UserController {
 		User user=new User();
 		user.setEmail(userDto.getEmail());
 		user.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
-		System.out.println(user.getPassword());
 		user.setUsername(userDto.getUsername());
 		userService.register(user);
 		modelMap.addAttribute("userDto",user);
@@ -93,5 +91,19 @@ public class UserController {
 	public String signOut(SessionStatus sessionStatus){
 		sessionStatus.setComplete();
 		return "redirect:/sys/home";
+	}
+
+	/*
+	user/account
+	 */
+//	TODO replace the user/account logic in Filter
+	@RequestMapping(value = "/account",method = RequestMethod.GET)
+	public String account(HttpSession httpSession,Model model){
+		User currentUser=(User)httpSession.getAttribute("currentUser");
+		if(currentUser!=null) {
+			model.addAttribute(currentUser);
+			return "user/account";
+		}
+		return "redirect:/user/signin";
 	}
 }

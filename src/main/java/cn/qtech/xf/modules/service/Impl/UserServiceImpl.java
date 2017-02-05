@@ -7,6 +7,7 @@ import cn.qtech.xf.modules.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void register(User user) {
+
 		user.setCreateDate(new Date());
 		userMapper.insertSelective(user);
 	}
