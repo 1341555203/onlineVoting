@@ -5,11 +5,13 @@ import sun.misc.BASE64Encoder;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 /**
- * Created by mtf81 on 2017/2/3.
+ *字符转换类
  */
-public class Md5Util {
+public class EncodeUtil {
+	//使用MD5加密
 	public static String EncodeByMd5(String str) {
 //		确定加密方法
 		try {
@@ -23,4 +25,14 @@ public class Md5Util {
 		}
 		return null;
 	}
+	//使用UUID获得存储使用的文件名
+	public static String EncodeFileName(String fileName) {
+		int index = fileName.lastIndexOf(".");
+		String ext = "";
+		if (index > -1) {
+			ext = fileName.substring(index);
+		}
+		return UUID.randomUUID() + ext;
+	}
+
 }

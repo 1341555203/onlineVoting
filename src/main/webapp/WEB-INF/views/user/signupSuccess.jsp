@@ -12,6 +12,6 @@
 	<meta http-equiv="refresh" content="3;url=<%=request.getContextPath()%>/user/signin">
 </head>
 <body>
-注册成功,正在跳转至登录页面...
+注册成功,正在跳转至<a href="<%=request.getContextPath()%>/user/signin">登录</a>页面...
 </body>
 </html>

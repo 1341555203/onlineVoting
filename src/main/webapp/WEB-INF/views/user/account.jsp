@@ -35,14 +35,17 @@
 			<ul class="breadcrumb">
 			<li class="active">Account</li>
 			<li><a href="<%=request.getContextPath()%>/user/myVotes">Voting Center</a></li>
-			<li><a href="<%=request.getContextPath()%>/vote/startup">Startup!</a></li>
+			<li><a href="<%=request.getContextPath()%>/voting/startup">Startup!</a></li>
+			<li><a href="<%=request.getContextPath()%>/user/signout">signout</a></li>
 		    </ul>
 		</legend>
-		<div class="col-xs-offset-1">
+		<div class="col-xs-10 col-xs-offset-1">
 			<h1>${currentUser.username}</h1>
 			<h3>${currentUser.email}</h3>
 			<h3 class="userGender">${currentUser.gender}</h3>
 			<h3 class="userType">${currentUser.userType}</h3>
+			<hr>
+			<a class="btn btn-primary" href="<%=request.getContextPath()%>/user/account/update">修改账户信息</a>
 		</div>
 	</div>
 </div>

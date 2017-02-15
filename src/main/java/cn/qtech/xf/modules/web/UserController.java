@@ -1,11 +1,9 @@
 package cn.qtech.xf.modules.web;
 
-import cn.qtech.xf.common.utils.Md5Util;
+import cn.qtech.xf.common.utils.EncodeUtil;
 import cn.qtech.xf.modules.dto.UserDto;
 import cn.qtech.xf.modules.entity.User;
-import cn.qtech.xf.modules.entity.User_Temp;
 import cn.qtech.xf.modules.service.UserService;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-/**
- * Created by mtf81 on 2016/11/2.
- */
+
 @Controller
 @RequestMapping("/user")
 @SessionAttributes("currentUser")
@@ -39,8 +35,9 @@ public class UserController {
 	@RequestMapping(value = "/signin",method = RequestMethod.POST)
 	public String signIn(@Valid UserDto userDto, Errors errors,HttpSession httpSession){
 
-		userDto.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
-		System.out.println(userDto.getPassword());
+		userDto.setPassword(EncodeUtil.EncodeByMd5(userDto.getPassword()));
+//		System.out.println(userDto.getPassword());
+		System.out.println(userDto.getEmail()+"-----Login request");
 		if(errors.hasErrors()){
 			return "user/signin";
 		}
@@ -71,7 +68,7 @@ public class UserController {
 		}
 		User user=new User();
 		user.setEmail(userDto.getEmail());
-		user.setPassword(Md5Util.EncodeByMd5(userDto.getPassword()));
+		user.setPassword(EncodeUtil.EncodeByMd5(userDto.getPassword()));
 		user.setUsername(userDto.getUsername());
 		userService.register(user);
 		modelMap.addAttribute("userDto",user);

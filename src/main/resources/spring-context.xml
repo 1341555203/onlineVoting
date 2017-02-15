@@ -74,4 +74,13 @@
     </bean>
     <!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!--文件上传表单的视图解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="104857600"/>
+        <property name="maxInMemorySize" value="4096"/>
+    </bean>
+
+
+
 </beans>

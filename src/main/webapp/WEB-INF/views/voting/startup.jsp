@@ -1,13 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%--以上标签必须放在最上 否则无法在移动端正常显示--%>
-	<title>V.O.T.E</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/bootstrap/css/bootstrap.min.css">
+	<title>startUp</title>
 </head>
 <body>
 <div class="container col-lg-8 col-lg-offset-2 ">
@@ -44,12 +45,12 @@
 						</li>
 					</c:if>
 				</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Search</button>
-				</form>
+				<%--<form class="navbar-form navbar-left" role="search">--%>
+					<%--<div class="form-group">--%>
+						<%--<input type="text" class="form-control" placeholder="Search">--%>
+					<%--</div>--%>
+					<%--<button type="submit" class="btn btn-default">Search</button>--%>
+				<%--</form>--%>
 				<ul class="nav navbar-nav navbar-right">
 					<%--c:if 判断 若已登录则试用dropdown显示当前用户--%>
 					<%--<li><a href="<%=request.getContextPath()%>/user/signup">Sign Up<span class="sr-only">(current)</span></a></li>--%>
@@ -64,15 +65,57 @@
 	<div class="container col col-xs-12 " style="background-color: white">
 		<div class="list-group">
 			<div class="list-group-item" style="margin-bottom: 10px">
-				<h4 class="list-group-item-heading text-center">List group item heading</h4>
+				<h4 class="list-group-item-heading text-center">创建新选单</h4>
 				<hr/>
-				<div class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-					eget risus varius blandit.t eget metus. Maecenas sed diam eget risus varius blandit.
+				<div class="list-group-item-text">
+
+
+					<div class="form-group">
+						<label class="control-label" for="inputDefault">请填写一个主题</label>
+						<input type="text" class="form-control" id="inputDefault">
+					</div>
+					<div class="form-group">
+						<label class="control-label" for="inputLarge">请添加一段描述</label>
+						<input class="form-control input-lg" type="text" id="inputLarge">
+					</div>
+					<div id="optionArea">
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>测试选项1</strong>
+						</div>
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>测试选项2</strong>
+						</div>
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<strong>测试选项3</strong>
+						</div>
+					</div>
+					<a href="#" class="btn btn-default">增加一个选项</a>
+
+					<%--<div class="form-group">--%>
+						<%--<label class="col-lg-2 control-label">选择投票类型</label>--%>
+						<%--<div class="col-lg-10">--%>
+							<%--<div class="radio">--%>
+								<%--<label>--%>
+									<%--<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">--%>
+									<%--单选--%>
+								<%--</label>--%>
+							<%--</div>--%>
+							<%--<div class="radio">--%>
+								<%--<label>--%>
+									<%--<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">--%>
+									<%--多选--%>
+								<%--</label>--%>
+							<%--</div>--%>
+						<%--</div>--%>
+					<%--</div>--%>
 				</div>
 				<p class="text-right">
-					2016-10-28 11:16:03
+					 *此选单为单选模式
 				</p>
-				<%--<a href="#" class="btn btn-block btn-primary">Cast This</a>--%>
+				<a href="#" class="btn btn-block btn-primary">创建!</a>
 			</div>
 		</div>
 	</div>

@@ -17,9 +17,9 @@
 				<a class="navbar-brand" href="<%=request.getContextPath()%>/sys/home">VOTE</a>
 			</div>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<%=request.getContextPath()%>/user/signin">sign in</a></li>
-			</ul>
+			<%--<ul class="nav navbar-nav navbar-right">--%>
+				<%--<li><a href="<%=request.getContextPath()%>/user/signin">sign in</a></li>--%>
+			<%--</ul>--%>
 		</div>
 	</nav>
 
