@@ -11,7 +11,7 @@
 	<title>Title</title>
 </head>
 <body>
-<form method="post" action="/image/upload/u/1234567" enctype="multipart/form-data">
+<form method="post" action="/image/upload/u/1234567/redirect?uri=sys/home" enctype="multipart/form-data">
 	<input type="file" name="upImage"/>
 	<button type="submit">submit</button>
 </form>

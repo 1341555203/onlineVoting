@@ -29,15 +29,13 @@ public class ImageController {
 	}
 	@RequestMapping(value="/upload/{imageType}/{targetId}",method = RequestMethod.POST)
 	public String uploadImage(@PathVariable String imageType,@PathVariable int targetId,@RequestParam("upImage") MultipartFile upImage){
-		System.out.println("start-------------");
-		System.out.println(upImage.getOriginalFilename());
-		System.out.println(upImage.getName());
-		System.out.println(upImage.getSize());
-		System.out.println(imageType);
-		System.out.println(targetId);
-		System.out.println("end----------------");
 		imageService.saveFile(imageType,targetId,upImage);
-		System.out.println("end2---------------");
 		return "success";
+	}
+	@RequestMapping(value="/upload/{imageType}/{targetId}/redirect",method = RequestMethod.POST)
+	public String uploadImageRedirect(@PathVariable String imageType,@PathVariable int targetId,@RequestParam String uri,@RequestParam("upImage") MultipartFile upImage){
+		imageService.saveFile(imageType,targetId,upImage);
+		System.out.println(uri);
+		return "redirect:/"+uri;
 	}
 }
