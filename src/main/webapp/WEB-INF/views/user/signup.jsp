@@ -39,7 +39,7 @@
 				<div class="form-group">
 					<label for="inputUsername" class="col-lg-2 control-label">username</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputUsername" name="username" required="required">
+						<input type="text" class="form-control" id="inputUsername" name="username" required="required" maxlength="16" min="3">
 						<div class="errorMsg"><form:form commandName="user"><form:errors
 								path="username"></form:errors></form:form></div>
 					</div>
@@ -65,6 +65,7 @@
 					<label for="inputPwd2" class="col-lg-2 control-label">confirm pwd</label>
 					<div class="col-lg-10">
 						<input type="password" class="form-control" id="inputPwd2" required="required">
+						<div id="pwdMsg" class="errorMsg"></div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -72,7 +73,7 @@
 
 					</div>
 					<div class="col-lg-8 col-lg-offset-2">
-						<button type="submit" class="btn btn-primary">Sign Up<span
+						<button type="submit" id="subBtn" class="btn btn-primary">Sign Up<span
 								class="glyphicon glyphicon-play"></span></button>
 					</div>
 				</div>
@@ -92,4 +93,22 @@
 </body>
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		var pwdEqual=false;
+		$("#inputPwd2,#inputPwd").keyup(function(){
+			var pw1=$("#inputPwd").val();
+			var pw2=$("#inputPwd2").val();
+			if(pw1!=pw2){
+				$("#pwdMsg").text("请输入相同的密码");
+				pwdEqual=false;
+				$("#subBtn").attr({"disabled":"disabled"});
+			}else{
+				$("#pwdMsg").text("");
+				pwdEqual=true;
+				$("#subBtn").removeAttr("disabled");
+			}
+		});
+	});
+</script>
 </html>

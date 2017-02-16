@@ -14,6 +14,10 @@
 		.breadcrumb li{
 			font-size: medium;
 		}
+		#userIcon img{
+			width: 120px;
+			height:120px;
+		}
 	</style>
 </head>
 <body>
@@ -40,6 +44,11 @@
 		    </ul>
 		</legend>
 		<div class="col-xs-10 col-xs-offset-1">
+			<div id="userIcon">
+				<a href="#" data-toggle="modal" data-target="#iconModel">
+					<img src="<%=request.getContextPath()%>/image/down/u/${currentUser.id}" />
+				</a>
+			</div>
 			<h1>${currentUser.username}</h1>
 			<h3>${currentUser.email}</h3>
 			<h3 class="userGender">${currentUser.gender}</h3>
@@ -49,6 +58,35 @@
 		</div>
 	</div>
 </div>
+
+<form  methord="POST" enctype="multipart/form-data" id="iconForm">
+	<!-- icon modify model -->
+	<div class="modal" id="iconModel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+					        aria-hidden="true">&times;</button>
+					<h4 class="modal-title">更改头像</h4>
+				</div>
+				<div class="modal-body">
+					<div id="iconpreview" class="text-center">
+						<img id="icon" class=" img-circle" style="height: 120px; width: 120px" src="<%=request.getContextPath()%>/image/down/u/${currentUser.id}" />
+					</div>
+					<input type="file" name="upImage" id="inputhd"   accept="image/*,">
+
+				</div>
+				<div class="modal-footer">
+					<button id="selBtn" type="button" class="btn btn-default btn-sm ">选择一张本地图片
+					</button>
+					<button type="button" id="subicon" class="btn btn-primary btn-sm disabled">Update
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
 </body>
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.min.js"></script>
@@ -72,6 +110,39 @@
 				$('.userType').text('管理员');
 			}
 		}
+
+		$("#inputhd").hide();
+		$("#selBtn").on('click',function(){
+			$("#inputhd").click();
+		});
+		$("#inputhd").on("change",function(){
+			var prevDiv = $("#iconpreview");
+			if (this.files && this.files[0])
+			{
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					prevDiv.html('<img class="img-circle" style="height:120px;width:120px;" src="' + evt.target.result + '" />');
+				}
+				reader.readAsDataURL(this.files[0]);
+				$("#subicon").removeClass("disabled");
+			}
+
+			$("#subicon").one("click",function(){
+
+				$.ajax("/image/upload/u/${currentUser.id}", {
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					data : new FormData($("#iconForm")[0]),
+					type : 'post',
+					success : function(rt) {
+						window.location.reload();
+					}
+				});
+			});
+
+		});
 	});
 </script>
 </html>

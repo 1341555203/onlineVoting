@@ -29,17 +29,21 @@ public class FileServiceImpl implements FIleService {
 		attachmentDto.setOwnerId(targetId);
 		attachmentDto.setOwnerType(ownerType);
 		Attachment attachment=attachmentMapper.selectByTypeId(attachmentDto);
+		try {
 		if(attachment!=null){
-			try {
+
 				File file = new File(FileUtil.DEFAULTDIR,attachment.getAttName());
 				return FileUtil.download(attachment.getAttOrigin(), file);
-			}catch (IOException e){
-				e.printStackTrace();
-				System.out.println("------imageServiceImpl ioException");
-			}
+
+		}else {
+
+			File file = new File(FileUtil.DEFAULTDIR,"defaultIcon.jpeg");
+			return FileUtil.download("defaultIcon.jpg", file);
 		}
-		System.out.println("------imageServiceImpl attachment null");
-		return null;
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return  null;
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class FileServiceImpl implements FIleService {
 		attachment.setOwnerType(ownerType);
 		attachment.setOwnerId(targetId);
 		attachment.setAttName(FileUtil.saveFile(file));
-		System.out.println(attachment.getAttName());
+//		System.out.println(attachment.getAttName());
 		attachmentMapper.insert(attachment);
 
 	}

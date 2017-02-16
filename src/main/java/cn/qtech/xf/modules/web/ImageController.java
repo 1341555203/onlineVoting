@@ -7,34 +7,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * Created by mtf81 on 2017/2/15.
- */
 @Controller
 @RequestMapping("/image")
 public class ImageController {
 	@Autowired
-	private FIleService imageService;
-	@RequestMapping(value = "/down/{imageType}/{tagetId}",method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getImage(@RequestParam String imageType, @RequestParam int targetId) {
-//		String fileName="";
-//		File file=new File("");
-//		try {
-//			return FileUtil.download(fileName, file);
-//		}catch(IOException e){
-//			e.printStackTrace();
-//		}
-//		return null;
-		return imageService.getFile(imageType,targetId);
+	private FIleService fIleService;
+	/*
+	image/down/{imageType}/{targetId}
+	下载
+	 */
+	@RequestMapping(value = "/down/{imageType}/{targetId}",method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getImage(@PathVariable String imageType, @PathVariable int targetId) {
+		return fIleService.getFile(imageType,targetId);
 	}
+	/*
+	image/upload/{imageType}/{targetId}
+	上传
+	 */
 	@RequestMapping(value="/upload/{imageType}/{targetId}",method = RequestMethod.POST)
 	public String uploadImage(@PathVariable String imageType,@PathVariable int targetId,@RequestParam("upImage") MultipartFile upImage){
-		imageService.saveFile(imageType,targetId,upImage);
+		fIleService.saveFile(imageType,targetId,upImage);
 		return "success";
 	}
 	@RequestMapping(value="/upload/{imageType}/{targetId}/redirect",method = RequestMethod.POST)
 	public String uploadImageRedirect(@PathVariable String imageType,@PathVariable int targetId,@RequestParam String uri,@RequestParam("upImage") MultipartFile upImage){
-		imageService.saveFile(imageType,targetId,upImage);
+		fIleService.saveFile(imageType,targetId,upImage);
 		System.out.println(uri);
 		return "redirect:/"+uri;
 	}

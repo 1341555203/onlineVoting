@@ -36,11 +36,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void update(User user) {
-
+		userMapper.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
 	public User selectByEmail(String email) {
 		return userMapper.selectByEmail(email);
 	}
+
 }

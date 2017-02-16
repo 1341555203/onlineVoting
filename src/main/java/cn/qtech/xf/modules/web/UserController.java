@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -102,5 +103,22 @@ public class UserController {
 			return "user/account";
 		}
 		return "redirect:/user/signin";
+	}
+	/*
+	user/account/update
+	 */
+	@RequestMapping(value = "/account/update",method = RequestMethod.GET)
+	public String updateInit(HttpSession httpSession,Model model){
+		model.addAttribute("currentUser",httpSession.getAttribute("currentUser"));
+		return "user/account_update";
+	}
+	@RequestMapping(value = "/account/update",method = RequestMethod.POST)
+	public String updateAccount(UserDto userDto,HttpSession httpSession){
+		System.out.println(userDto);
+		User user=(User)httpSession.getAttribute("currentUser");
+		user.setUsername(userDto.getUsername());
+		user.setGender(userDto.getGender());
+		userService.update(user);
+		return "redirect:/user/account";
 	}
 }
