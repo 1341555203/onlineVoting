@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.qtech.xf.modules.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="cn.qtech.xf.modules.entity.Menu">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="menu_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="menu_discription" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="need_pwd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="cutoff_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="menu_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="menu_status" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="del_flag" javaType="java.lang.String" jdbcType="CHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menu_title, menu_discription, need_pwd, create_date, cutoff_time, menu_type, 
+    menu_status, del_flag
+  </sql>
+  <resultMap id="menuMap" type="cn.qtech.xf.modules.entity.Menu">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="menu_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="menu_discription" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="need_pwd" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="cutoff_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="menu_type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="menu_status" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="del_flag" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="created_by" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+    <collection property="options" ofType="cn.qtech.xf.modules.entity.Option" javaType="java.util.List">
+      <id property="id" column="option_id"/>
+      <result property="menuId" column="menu_id"/>
+      <result property="optionTitle" column="option_title"/>
+      <result property="delFlag" column="o_del_flag"/>
+    </collection>
+  </resultMap>
+
+  <select id="getAllMenu" resultMap="menuMap">
+    select
+     m.id,
+     menu_title,
+     menu_discription,
+     need_pwd,
+     create_date,
+     cutoff_time,
+     menu_type,
+     menu_status,
+     m.del_flag,
+     m.created_by,
+     o.id as 'option_id',
+     menu_id,option_title,o.del_flag as o_del_flag
+     from
+    t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0  order by m.create_date
+  </select>
+
+  <select id="getMenuByUser" parameterType="java.lang.Integer" resultMap="menuMap">
+    select
+     m.id,
+     menu_title,
+     menu_discription,
+     need_pwd,
+     create_date,
+     cutoff_time,
+     menu_type,
+     menu_status,
+     m.del_flag,
+     m.created_by,
+     o.id as 'option_id',
+     menu_id,option_title,o.del_flag as o_del_flag
+     from
+    t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0 and m.created_by=#{id} order by m.create_date
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.qtech.xf.modules.entity.Menu">
+    insert into t_menu (id, menu_title, menu_discription, 
+      need_pwd, create_date, cutoff_time, 
+      menu_type, menu_status, del_flag
+      )
+    values (#{id,jdbcType=INTEGER}, #{menuTitle,jdbcType=VARCHAR}, #{menuDiscription,jdbcType=VARCHAR}, 
+      #{needPwd,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{cutoffTime,jdbcType=TIMESTAMP}, 
+      #{menuType,jdbcType=CHAR}, #{menuStatus,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.qtech.xf.modules.entity.Menu" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menuTitle != null">
+        menu_title,
+      </if>
+      <if test="menuDiscription != null">
+        menu_discription,
+      </if>
+      <if test="needPwd != null">
+        need_pwd,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="cutoffTime != null">
+        cutoff_time,
+      </if>
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="menuStatus != null">
+        menu_status,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menuTitle != null">
+        #{menuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDiscription != null">
+        #{menuDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="needPwd != null">
+        #{needPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cutoffTime != null">
+        #{cutoffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="menuStatus != null">
+        #{menuStatus,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+    </trim>
+    <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.qtech.xf.modules.entity.Menu">
+    update t_menu
+    <set>
+      <if test="menuTitle != null">
+        menu_title = #{menuTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDiscription != null">
+        menu_discription = #{menuDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="needPwd != null">
+        need_pwd = #{needPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cutoffTime != null">
+        cutoff_time = #{cutoffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="menuType != null">
+        menu_type = #{menuType,jdbcType=CHAR},
+      </if>
+      <if test="menuStatus != null">
+        menu_status = #{menuStatus,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.qtech.xf.modules.entity.Menu">
+    update t_menu
+    set menu_title = #{menuTitle,jdbcType=VARCHAR},
+      menu_discription = #{menuDiscription,jdbcType=VARCHAR},
+      need_pwd = #{needPwd,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      cutoff_time = #{cutoffTime,jdbcType=TIMESTAMP},
+      menu_type = #{menuType,jdbcType=CHAR},
+      menu_status = #{menuStatus,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

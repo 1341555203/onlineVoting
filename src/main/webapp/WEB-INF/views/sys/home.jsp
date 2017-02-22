@@ -62,18 +62,21 @@
 		</div>
 	</nav>
 	<div class="container col col-xs-12 " style="background-color: white">
+
 		<div class="list-group">
+			<c:forEach var="menu" items="${menuList}">
 			<div class="list-group-item" style="margin-bottom: 10px">
-				<h4 class="list-group-item-heading text-center">List group item heading</h4>
+				<h4 class="list-group-item-heading text-center">${menu.menuTitle}</h4>
 				<hr/>
-				<div class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam
-					eget risus varius blandit.t eget metus. Maecenas sed diam eget risus varius blandit.
+				<div class="list-group-item-text">
+				${menu.menuDiscription}
 				</div>
 				<p class="text-right">
-					2016-10-28 11:16:03
+					${menu.createDate}
 				</p>
 				<%--<a href="#" class="btn btn-block btn-primary">Cast This</a>--%>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>

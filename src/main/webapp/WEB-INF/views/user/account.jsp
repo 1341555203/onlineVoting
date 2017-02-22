@@ -38,7 +38,7 @@
 		<legend>
 			<ul class="breadcrumb">
 			<li class="active">Account</li>
-			<li><a href="<%=request.getContextPath()%>/user/myVotes">Voting Center</a></li>
+			<li><a href="<%=request.getContextPath()%>/voting/myVoting">My Voting</a></li>
 			<li><a href="<%=request.getContextPath()%>/voting/startup">Startup!</a></li>
 			<li><a href="<%=request.getContextPath()%>/user/signout">signout</a></li>
 		    </ul>

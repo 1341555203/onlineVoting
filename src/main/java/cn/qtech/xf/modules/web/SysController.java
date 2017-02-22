@@ -1,13 +1,16 @@
 package cn.qtech.xf.modules.web;
 
+import cn.qtech.xf.modules.entity.Menu;
 import cn.qtech.xf.modules.entity.User;
-import cn.qtech.xf.modules.entity.User_Temp;
+import cn.qtech.xf.modules.service.MenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by mtf81 on 2016/11/2.
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/sys")
 public class SysController {
+	@Autowired
+	private MenuService menuService;
 	/*
 	sys/home
 	 */
@@ -22,6 +27,9 @@ public class SysController {
 	public String home(Model model, HttpSession httpSession){
 		User currentUser=(User) httpSession.getAttribute("currentUser");
 		model.addAttribute("currentUser",currentUser);
+
+		List<Menu> menuList=menuService.getAllMenu();
+		model.addAttribute("menuList",menuList);
 		return "sys/home";
 	}
 	/*

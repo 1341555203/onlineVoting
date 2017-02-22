@@ -69,30 +69,29 @@
 				<hr/>
 				<div class="list-group-item-text">
 
-
+					<form action="createMenu" method="post">
 					<div class="form-group">
 						<label class="control-label" for="inputDefault">请填写一个主题</label>
-						<input type="text" class="form-control" id="inputDefault">
+						<input type="text" class="form-control" id="inputDefault" name="menuTitle">
 					</div>
 					<div class="form-group">
 						<label class="control-label" for="inputLarge">请添加一段描述</label>
-						<input class="form-control input-lg" type="text" id="inputLarge">
+						<input class="form-control input-lg" type="text" id="inputLarge" name="menuDiscription">
 					</div>
 					<div id="optionArea">
-						<div class="alert alert-dismissible alert-danger">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>测试选项1</strong>
-						</div>
-						<div class="alert alert-dismissible alert-danger">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>测试选项2</strong>
-						</div>
-						<div class="alert alert-dismissible alert-danger">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<strong>测试选项3</strong>
-						</div>
+						<%--options--%>
+							<div  class="alert alert-dismissible alert-danger">
+								<%--<button type="button" class="close" data-dismiss="alert">&times;</button>--%>
+								<strong>选项1</strong>
+								<input type="text" class="form-control" required="required" name="options[0].optionTitle"/>
+							</div>
+							<div  class="alert alert-dismissible alert-danger">
+								<%--<button type="button" class="close" data-dismiss="alert">&times;</button>--%>
+								<strong>选项2</strong>
+								<input type="text" class="form-control" required="required" name="options[2].optionTitle"/>
+							</div>
 					</div>
-					<a href="#" class="btn btn-default">增加一个选项</a>
+					<a id="addOption" href="#" class="btn btn-default">增加一个选项</a>
 
 					<%--<div class="form-group">--%>
 						<%--<label class="col-lg-2 control-label">选择投票类型</label>--%>
@@ -113,9 +112,10 @@
 					<%--</div>--%>
 				</div>
 				<p class="text-right">
-					 *此选单为单选模式
+					*至少需要两个选项.
 				</p>
-				<a href="#" class="btn btn-block btn-primary">创建!</a>
+				<button type="submit" class="btn btn-block btn-primary">创建!</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -123,4 +123,25 @@
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
+<script>
+	$(function(){
+		var optionArea=$("#optionArea");
+		var optionCount=2;
+		var addOption=function(){
+			optionCount++;
+			var defOption=  "<div  class='alert alert-dismissible alert-danger menuOptions'>"+
+					"<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
+					"<strong>选项"+optionCount+"</strong>"+
+					"<input type='text' class='form-control'  required='required' name='options["+optionCount+"].optionTitle'/>"+
+					"</div>";
+
+			optionArea.append(defOption);
+			console.log("addOption"+optionCount);
+		}
+		$("#addOption").on("click",function(evt){
+			evt.preventDefault();
+			addOption();
+		});
+	});
+</script>
 </html>
