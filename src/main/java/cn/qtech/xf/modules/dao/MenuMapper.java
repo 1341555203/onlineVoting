@@ -23,4 +23,6 @@ public interface MenuMapper {
 
     List<Menu> getMenuByUser(Integer id);
 
+    void setStatus(Integer id);
+
 }

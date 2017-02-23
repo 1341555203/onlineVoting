@@ -8,12 +8,20 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%--以上标签必须放在最上 否则无法在移动端正常显示--%>
-	<title>${menu.menuTitle}</title>
+	<title>${resultDto.menu.menuTitle}</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/bootstrap/css/bootstrap.min.css">
 	<style>
 		#userIcon img{
 			width: 180px;
 			height:180px;
+		}
+
+		 #resultSpan{
+			 color: #b2b2b2;
+		 }
+		#userIcon2 img{
+			width: 40px;
+			height:40px;
 		}
 	</style>
 </head>
@@ -74,44 +82,71 @@
 	<div class="container col col-xs-12 jumbotron " style="background-color: white">
 		<%--选单信息--%>
 		<%--投票选项及按钮--%>
-			<div class="col col-md-8 col-xs-12">
-				<h2>${menu.menuTitle}</h2>
-				<hr>
-				<h5>${menu.menuDiscription}</h5>
+		<div class="col col-md-8 col-xs-12">
+			<h2>${resultDto.menu.menuTitle}
+				<c:if test="${resultDto.menu.menuStatus==1}">
+							<span id="resultSpan">(已关闭的投票)<span>
+				</c:if>
+			</h2>
+			<hr>
+			<h5>${resultDto.menu.menuDiscription}</h5>
+			<br>
+			<ul>
+			<c:forEach items="${resultDto.optionDtos}" var="optionDto">
+					<li>${optionDto.option.optionTitle} &nbsp;&nbsp;&nbsp;<span class="badge">${optionDto.count}</span></li>
 				<br>
-				<form method="post" action="commitVoting">
+			</c:forEach>
+			</ul>
+		</div>
 
-					<input type="hidden" value="${menu.id}" name="menuId">
-					<input type="hidden" value="${currentUser.id}" name="userId"/>
-					<c:forEach items="${menu.options}" var="option">
-						<div class="form-group">
-							<div class="col-lg-10">
-								<div class="radio">
-									<label>
-										<input type="radio" name="optionId" value="${option.id}" required="required">
-											${option.optionTitle}
-									</label>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-					<button id="subBtn"type="submit" class="btn  btn-primary " >提交我的选择</button>
-				</form>
+		<div class="col col-md-4 col-xs-12">
+			<br>
+			<br>
+			<h4>开始于</h4>
+			<h6>&nbsp;&nbsp;${resultDto.menu.createDate}</h6>
+			<div id="userIcon">
+				<img src="<%=request.getContextPath()%>/image/down/u/${resultDto.menu.createdBy}" alt="创建人头像"/>
 			</div>
+		</div>
 
-			<div class="col col-md-4 col-xs-12">
-				<br>
-				<br>
-				<h4>开始于</h4>
-				<h6>&nbsp;&nbsp;${menu.createDate}</h6>
-				<div id="userIcon">
-				<img src="<%=request.getContextPath()%>/image/down/u/${menu.createdBy}" alt="创建人头像"/>
+		<div class="col col-xs-12 col-md-8" style="margin-top: 15px;">
+			<hr/>
+			<c:if test="${currentUser!=null}">
+			<div class="col-xs-12">
+				<form method="post" action="<%=request.getContextPath()%>/voting/addCommit">
+					<input type="hidden" name="menuId" value="${resultDto.menu.id}"/>
+					<input type="hidden" name="userId" value="${currentUser.id}"/>
+				<div class="form-group">
+					<label for="textArea" class="col-lg-2 control-label">${currentUser.username}</label>
+					<div class="col-lg-10">
+						<textarea class="form-control" rows="3" id="textArea" name="content"></textarea>
+						<span class="help-block">在上方写入你的看法</span>
+					</div>
 				</div>
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<button type="reset" class="btn btn-default">Cancel</button>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</div>
+			</form>
 			</div>
-
-			<div class="col col-xs-12 col-md-8" style="margin-top: 15px;">
-
+			</c:if>
+			<legend>Commits</legend>
+			<div class="col-xs-12">
+				<c:forEach items="${commits}" var="commit">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div id="userIcon2">
+							<img src="<%=request.getContextPath()%>/image/down/u/${commit.userId}" alt="创建人头像"/>
+						</div>
+						<h4>${commit.content}</h4>
+						<h5>${commit.createDate}</h5>
+					</div>
+				</div>
+				</c:forEach>
 			</div>
+		</div>
 
 		<%--评论部分--%>
 	</div>
@@ -119,9 +154,5 @@
 <script src="<%=request.getContextPath()%>/static/jquery/1.11.3/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
-<script>
-	$(function(){
 
-	});
-</script>
 </html>

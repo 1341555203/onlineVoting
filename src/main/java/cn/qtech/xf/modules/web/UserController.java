@@ -44,6 +44,10 @@ public class UserController {
 		}
 		User currentUser=userService.selectByEmailPassword(userDto);
 		if(currentUser!=null){
+			if(currentUser.getUserType().equals("1")){
+				httpSession.setAttribute("admin",currentUser);
+				return "redirect:/admin/users";
+			}
 			httpSession.setAttribute("currentUser",currentUser);
 			return "redirect:/user/account";
 		}

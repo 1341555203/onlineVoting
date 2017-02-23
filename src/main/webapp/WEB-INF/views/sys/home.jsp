@@ -8,6 +8,11 @@
 	<%--以上标签必须放在最上 否则无法在移动端正常显示--%>
 	<title>V.O.T.E</title>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/bootstrap/css/bootstrap.min.css">
+	<style>
+		#resultSpan{
+			color: #b2b2b2;
+		}
+	</style>
 </head>
 <body>
 <div class="container col-lg-8 col-lg-offset-2 ">
@@ -44,12 +49,12 @@
 						</li>
 					</c:if>
 				</ul>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Search</button>
-				</form>
+				<%--<form class="navbar-form navbar-left" role="search">--%>
+					<%--<div class="form-group">--%>
+						<%--<input type="text" class="form-control" placeholder="Search">--%>
+					<%--</div>--%>
+					<%--<button type="submit" class="btn btn-default">Search</button>--%>
+				<%--</form>--%>
 				<ul class="nav navbar-nav navbar-right">
 					<%--c:if 判断 若已登录则试用dropdown显示当前用户--%>
 					<%--<li><a href="<%=request.getContextPath()%>/user/signup">Sign Up<span class="sr-only">(current)</span></a></li>--%>
@@ -65,17 +70,23 @@
 
 		<div class="list-group">
 			<c:forEach var="menu" items="${menuList}">
-			<div class="list-group-item" style="margin-bottom: 10px">
-				<h4 class="list-group-item-heading text-center">${menu.menuTitle}</h4>
-				<hr/>
-				<div class="list-group-item-text">
-				${menu.menuDiscription}
-				</div>
-				<p class="text-right">
-					${menu.createDate}
-				</p>
-				<%--<a href="#" class="btn btn-block btn-primary">Cast This</a>--%>
-			</div>
+				<a href="<%=request.getContextPath()%>/voting/view/${menu.id}">
+					<div class="list-group-item" style="margin-bottom: 10px">
+						<h4 class="list-group-item-heading text-center">${menu.menuTitle}
+						<c:if test="${menu.menuStatus==1}">
+							<span id="resultSpan">(投票已关闭,可查看结果)<span>
+						</c:if>
+						</h4>
+						<hr/>
+						<div class="list-group-item-text">
+								${menu.menuDiscription}
+						</div>
+						<p class="text-right">
+								${menu.createDate}
+						</p>
+							<%--<a href="#" class="btn btn-block btn-primary">Cast This</a>--%>
+					</div>
+				</a>
 			</c:forEach>
 		</div>
 	</div>

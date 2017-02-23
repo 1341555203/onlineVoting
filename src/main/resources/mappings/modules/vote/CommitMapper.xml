@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.qtech.xf.modules.dao.RecordMapper">
-  <resultMap id="BaseResultMap" type="cn.qtech.xf.modules.entity.Record">
+<mapper namespace="cn.qtech.xf.modules.dao.CommitMapper">
+  <resultMap id="BaseResultMap" type="cn.qtech.xf.modules.entity.Commit">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="menu_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="option_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="del_flag" javaType="java.lang.String" jdbcType="CHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, menu_id, option_id, user_id, create_date
+    id, menu_id, user_id, content, create_date, del_flag
   </sql>
+  <select id="findCommitByMenuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * from t_commit where del_flag=0 and menu_id= #{id,jdbcType=INTEGER} ORDER BY  create_date desc
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_record
+    from t_commit
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_record
+    delete from t_commit
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.qtech.xf.modules.entity.Record">
-    insert into t_record (id, menu_id, option_id, 
-      user_id, create_date)
-    values (#{id,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{optionId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="cn.qtech.xf.modules.entity.Commit">
+    insert into t_commit (id, menu_id, user_id, 
+      content, create_date, del_flag
+      )
+    values (#{id,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="cn.qtech.xf.modules.entity.Record">
-    insert into t_record
+  <insert id="insertSelective" parameterType="cn.qtech.xf.modules.entity.Commit">
+    insert into t_commit
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -38,14 +44,17 @@
       <if test="menuId != null">
         menu_id,
       </if>
-      <if test="optionId != null">
-        option_id,
-      </if>
       <if test="userId != null">
         user_id,
       </if>
+      <if test="content != null">
+        content,
+      </if>
       <if test="createDate != null">
         create_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -55,49 +64,48 @@
       <if test="menuId != null">
         #{menuId,jdbcType=INTEGER},
       </if>
-      <if test="optionId != null">
-        #{optionId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.qtech.xf.modules.entity.Record">
-    update t_record
+  <update id="updateByPrimaryKeySelective" parameterType="cn.qtech.xf.modules.entity.Commit">
+    update t_commit
     <set>
       <if test="menuId != null">
         menu_id = #{menuId,jdbcType=INTEGER},
       </if>
-      <if test="optionId != null">
-        option_id = #{optionId,jdbcType=INTEGER},
-      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.qtech.xf.modules.entity.Record">
-    update t_record
+  <update id="updateByPrimaryKey" parameterType="cn.qtech.xf.modules.entity.Commit">
+    update t_commit
     set menu_id = #{menuId,jdbcType=INTEGER},
-      option_id = #{optionId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      content = #{content,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByUserMenu" parameterType="cn.qtech.xf.modules.entity.Record" resultType="cn.qtech.xf.modules.entity.Record">
-    select <include refid="Base_Column_List" />
-    from t_record
-    where  user_id = #{userId,jdbcType=INTEGER} AND menu_id= #{menuId,jdbcType=INTEGER}
-  </select>
-  <select id="getRecordCount" parameterType="cn.qtech.xf.modules.entity.Option" resultType="java.lang.Integer">
-    select count(*) from t_record where menu_id=#{menuId,jdbcType=INTEGER} and option_id= #{id,jdbcType=INTEGER}
-  </select>
 </mapper>

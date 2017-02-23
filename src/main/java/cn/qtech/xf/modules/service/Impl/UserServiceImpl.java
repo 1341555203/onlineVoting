@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mtf81 on 2017/2/3.
  */
 @Service
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	@Override
@@ -42,6 +43,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User selectByEmail(String email) {
 		return userMapper.selectByEmail(email);
+	}
+
+	@Override
+	public List<User> findAllUser() {
+		return userMapper.findAllUser();
+	}
+
+	@Override
+	public void delUser(Integer id) {
+		userMapper.deleteByPrimaryKey(id);
 	}
 
 }

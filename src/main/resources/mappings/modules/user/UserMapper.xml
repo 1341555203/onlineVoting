@@ -21,11 +21,10 @@
     select 
     <include refid="Base_Column_List" />
     from t_user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and del_flag=0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_user
-    where id = #{id,jdbcType=INTEGER}
+    update t_user set del_flag=1  where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.qtech.xf.modules.entity.User">
     insert into t_user (id, username, email, 
@@ -149,6 +148,9 @@
     select <include refid="Base_Column_List" />
     from t_user
     where email = #{email,jdbcType=VARCHAR}
-    and password=#{password,jdbcType=VARCHAR}
+    and password=#{password,jdbcType=VARCHAR} and del_flag=0
+  </select>
+  <select id="findAllUser" resultMap="BaseResultMap">
+    select * from t_user WHERE del_flag=0
   </select>
 </mapper>

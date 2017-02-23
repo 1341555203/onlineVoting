@@ -47,8 +47,8 @@
 								class="glyphicon glyphicon-play"></span></button>
 					</div>
 				</div>
-				<div class="text-right"><a href="<%=request.getContextPath()%>/user/forgot-password">Forgot
-					password?</a></div>
+				<%--<div class="text-right"><a href="<%=request.getContextPath()%>/user/forgot-password">Forgot--%>
+					<%--password?</a></div>--%>
 			</fieldset>
 			<hr>
 			<div>
@@ -59,8 +59,8 @@
 		<div class="form-horizontal  col-lg-6  col-md-5 hidden-sm hidden-xs">
 			<div class="jumbotron">
 				<h2>登录</h2>
-				<p>使用email和密码组合进行登录，忘记密码请点击Forgot password链接。<br>
-					注册新账户请点击下方sign up链接</p>
+				<p>使用email和密码组合进行登录<br>
+					请点击下方sign up链接注册新账户</p>
 			</div>
 		</div>
 	</div>

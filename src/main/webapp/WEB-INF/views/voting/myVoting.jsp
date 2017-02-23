@@ -47,8 +47,11 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<div class="list-group">
 				<c:forEach var="menu" items="${menuList}">
+
 					<div class="list-group-item" style="margin-bottom: 10px">
-						<h4 class="list-group-item-heading text-center">${menu.menuTitle}</h4>
+						<a href="<%=request.getContextPath()%>/voting/view/${menu.id}">
+							<h4 class="list-group-item-heading text-center">${menu.menuTitle}</h4>
+						</a>
 						<hr/>
 						<div class="list-group-item-text">
 								${menu.menuDiscription}
@@ -56,9 +59,13 @@
 						<p class="text-right">
 								${menu.createDate}
 						</p>
-							<%--<a href="#" class="btn btn-block btn-primary">Cast This</a>--%>
+						<c:if test="${menu.menuStatus==0}">
+							<a href="<%=request.getContextPath()%>/voting/setStatus/${menu.id}" class="btn btn-block btn-primary">关闭投票</a>
+						</c:if>
 					</div>
+
 				</c:forEach>
+
 			</div>
 	</div>
 </div>

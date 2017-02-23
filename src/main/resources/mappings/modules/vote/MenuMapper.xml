@@ -38,7 +38,9 @@
       <result property="delFlag" column="o_del_flag"/>
     </collection>
   </resultMap>
-
+<select id="setStatus" parameterType="java.lang.Integer">
+  update t_menu set menu_status=1 where id=#{id,jdbcType=INTEGER}
+</select>
   <select id="getAllMenu" resultMap="menuMap">
     select
      m.id,
@@ -54,7 +56,7 @@
      o.id as 'option_id',
      menu_id,option_title,o.del_flag as o_del_flag
      from
-    t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0  order by m.create_date
+    t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0  order by m.create_date desc
   </select>
 
   <select id="getMenuByUser" parameterType="java.lang.Integer" resultMap="menuMap">
@@ -75,15 +77,27 @@
     t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0 and m.created_by=#{id} order by m.create_date
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_menu
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="menuMap">
+    select
+     m.id,
+     menu_title,
+     menu_discription,
+     need_pwd,
+     create_date,
+     cutoff_time,
+     menu_type,
+     menu_status,
+     m.del_flag,
+     m.created_by,
+     o.id as 'option_id',
+     menu_id,option_title,o.del_flag as o_del_flag
+     from
+    t_menu m inner join t_option o on m.id=o.menu_id where m.del_flag=0 and m.id = #{id,jdbcType=INTEGER}
+
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_menu
+    update t_menu SET del_flag=1
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.qtech.xf.modules.entity.Menu">

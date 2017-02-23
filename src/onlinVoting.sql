@@ -25,8 +25,10 @@ create table t_menu(
     need_pwd varchar(256),
     create_date timestamp not null ,
     cutoff_time timestamp,
-    menu_status char(1) not null default '0',	-- 0 投票中 1 暂停 2 截止
-    del_flag char(1) not null default '0'		-- 0正常状态   1 冻结状态    9 删除状态
+    menu_type char(1) not null default '0',     -- 0单选  1 多选
+    menu_status char(1) not null default '0',	-- 0 投票中 1 暂停 2 截止 
+    del_flag char(1) not null default '0'	,	-- 0正常状态   1 冻结状态    9 删除状态
+    created_by int(8) not null
 );
 
 /*
@@ -38,19 +40,19 @@ create table t_option(
 	menu_id  int(8) not null,
     option_title varchar(256) not null,
     del_flag char(1) not null default '0'		-- 0正常状态   1 冻结状态    9 删除状态
-
+    
 );
 /*
 option menu 外键 级联删除
 */
-ALTER TABLE `online_voting`.`t_option`
+ALTER TABLE `online_voting`.`t_option` 
 ADD CONSTRAINT `fk_menu_option`
   FOREIGN KEY (`id`)
   REFERENCES `online_voting`.`t_menu` (`id`)
   ON DELETE CASCADE
-  ON UPDATE NO ACTION;
+;
 
-/*
+/*t_user
 投票记录表
 */
 drop table if exists t_record;
@@ -60,4 +62,29 @@ create table t_record(
     option_id int(8) not null,
     user_id int(8) not null,
     create_date timestamp
+);
+
+/*
+图片/附件记录
+*/
+drop table if exists t_attachment;
+create table t_attachment(
+	id int(8) not null auto_increment primary key,
+    owner_id int(8) not null,					-- 附件所有者id
+    owner_type char(1) not null default '0',	-- 所有者类型
+    att_name varchar(256) not null,				-- 文件名
+    att_origin varchar(256) not null			-- 原始文件名
+);
+
+/*
+评论表
+*/
+drop table if exists t_commit;
+create table t_commit(
+	id int(8) not null auto_increment primary key,
+	menu_id int(8) not null,
+	user_id int(8) not null,
+    content varchar(512) not null default 'n.s',
+	create_date timestamp,
+	del_flag char(1) not null default '0'		-- 0正常状态      9 删除状态
 );

@@ -3,6 +3,9 @@ package cn.qtech.xf.modules.dao;
 import cn.qtech.xf.common.persistence.annotation.MyBatisDao;
 import cn.qtech.xf.modules.dto.UserDto;
 import cn.qtech.xf.modules.entity.User;
+
+import java.util.List;
+
 @MyBatisDao
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -20,4 +23,5 @@ public interface UserMapper {
     User selectByEmail(String email);
 
     User selectByEmailPassword(UserDto userDto);
+    List<User> findAllUser();
 }
