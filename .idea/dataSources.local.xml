@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - online_voting@localhost" uuid="359b2c54-0c78-4196-b4ce-686110db0e2e">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>online_voting.*</schema-pattern>
+      <default-schemas>online_voting.*</default-schemas>
+    </data-source>
+  </component>
+</project>
