@@ -168,16 +168,17 @@ $(function(){
 
 
 
-	var data = {
-		labels:["lorem","ipsum","dolor","sitamet"],
+	var datas = {
+		labels:[],
 		datasets : [
 			{
 				fillColor : "rgba(220,220,220,0.5)",
 				strokeColor : "rgba(220,220,220,1)",
-				data : [0,1,0,0]
+				data : []
 			}
 		]
 	};
+
 	var options = {
 
 		//Boolean - If we show the scale above the chart data
@@ -252,7 +253,25 @@ $(function(){
 		onAnimationComplete : null
 
 	};
-	new Chart(ctx).Bar(data,options);
+
+	$.ajax({
+		url: '<%=request.getContextPath()%>/result/get/${resultDto.menu.id}',
+		type: 'GET', //GET
+		async: true,    //或false,是否异步
+		success: function (rep) {
+			for(var i =0;i<rep.length;i++){
+				datas.labels.push(rep[i].option.optionTitle);
+				datas.datasets[0].data.push(rep[i].count);
+			}
+			new Chart(ctx).Bar(datas,options);
+			console.log(data);
+		},
+		error: function () {
+			console.log("fail");
+		}
+	});
+
+
 });
 
 </script>

@@ -90,5 +90,12 @@ public class MenuServiceImpl implements MenuService{
 		menuMapper.deleteByPrimaryKey(id);
 	}
 
+//	@Override
+//	public List<OptionDto> getResultByMenuId(Integer id) {
+//		List<OptionDto> optionDtos = new ArrayList<OptionDto>();
+//
+//		return null;
+//	}
+
 
 }

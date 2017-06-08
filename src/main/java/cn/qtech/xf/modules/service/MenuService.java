@@ -19,4 +19,5 @@ public interface MenuService {
 	List<OptionDto> getRecordCount(List<Option> optionList);
 	void setMenuStatus(Integer id);
 	void delMenuById(Integer id);
+//	List<OptionDto> getResultByMenuId(Integer id);
 }
