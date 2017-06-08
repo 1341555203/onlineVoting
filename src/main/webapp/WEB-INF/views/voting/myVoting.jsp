@@ -38,8 +38,8 @@
 	<div class="container col-xs-12 whitebg">
 		<legend>
 			<ul class="breadcrumb">
-				<li class="active">Account</li>
-				<li><a href="<%=request.getContextPath()%>/user/myVotes">My Voting</a></li>
+				<li ><a href="<%=request.getContextPath()%>/user/account">Account</a></li>
+				<li class="active">My Voting</li>
 				<li><a href="<%=request.getContextPath()%>/voting/startup">Startup!</a></li>
 				<li><a href="<%=request.getContextPath()%>/user/signout">signout</a></li>
 			</ul>

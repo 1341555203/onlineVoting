@@ -49,7 +49,8 @@
 					<label for="inputEmail" class="col-lg-2 control-label">email</label>
 					<div class="col-lg-10">
 						<input type="email" class="form-control" id="inputEmail" name="email" required="required">
-						<div class="errorMsg"><form:form commandName="user"><form:errors
+						<div class="errorMsg">
+							<form:form commandName="user"><form:errors
 								path="email"></form:errors></form:form>
 							${errorMessage}
 						</div>
